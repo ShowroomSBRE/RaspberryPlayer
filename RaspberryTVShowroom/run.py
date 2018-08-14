@@ -28,7 +28,10 @@ class TVApp:
         self.video_player.start(self.preference_checker.video_list)
         self.preference_checker.start()
 
-        a = raw_input()
+        try:
+            a = raw_input()
+        except KeyboardInterrupt:
+            pass
 
         self._logger.info("Key pressed, exiting")
         self.tv_controller.stop()

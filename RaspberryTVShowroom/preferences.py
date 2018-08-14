@@ -37,8 +37,7 @@ class Preferences:
         self._scheduler.pause()
         self._logger.info("Finished")
 
-    @staticmethod
-    def decode_file(path):
+    def decode_file(self, path):
         data = {}
         with open(path, 'r') as stream:
             try:
@@ -49,6 +48,7 @@ class Preferences:
         if hostname in data.keys():
             return data[hostname]
         else:
+            self._logger.error("Unable to find my name (%s) in the config file (%s) " % (hostname, path))
             return None
 
 

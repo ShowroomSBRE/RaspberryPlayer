@@ -1,0 +1,4 @@
+apscheduler
+pyyaml
+omxplayer-wrapper
+pygame

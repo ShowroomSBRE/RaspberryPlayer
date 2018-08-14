@@ -1,0 +1,10 @@
+[Unit]
+Description=Showroom TV Player
+After=multi-user.target
+
+[Service]
+Type=idle
+ExecStart=/bin/sh /home/pi/Desktop/RaspberryPlayer/run.sh > /var/log/tvplayer.log 2>&1
+
+[Install]
+WantedBy=multi-user.target

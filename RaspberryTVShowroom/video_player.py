@@ -1,7 +1,7 @@
 from Queue import Empty
 from os import name
 from threading import Thread
-from logging import getLogger
+from logging import getLogger, INFO, StreamHandler, Formatter
 import time
 if name != "nt":
     from omxplayer.player import OMXPlayer
@@ -64,12 +64,24 @@ class VideoPlayer:
         """
         # print "[video player] Playing video %s" % path
         try:
-            self._current_player = OMXPlayer(path, args=['-r','--no-osd'],
-                                             dbus_name='org.mpris.MediaPlayer2.omxplayer1')
-            self._current_player.play()
-            while self._current_player.is_playing:
-                time.sleep(1)
+            self._logger.info("Starting video")
+            self._current_player = OMXPlayer(path)
+            while self._current_player.is_playing():
+                time.sleep(5)
+            self._logger.info("Video finished")
             return True
         except Exception as e:
             self._logger.error("Error playing %s : %s" % (path, str(e)))
             return False
+
+
+if __name__ == "__main__":
+    logger = getLogger("raspberry.videoplayer")
+    logger.setLevel(INFO)
+    formatter = Formatter('%(asctime)s [%(name)s] %(levelname)s : %(message)s')
+    stream_handler = StreamHandler()
+    stream_handler.setLevel(INFO)
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+    player = VideoPlayer()
+    player.play_video("/media/pi/Pepper/Videos/soiree.mp4")

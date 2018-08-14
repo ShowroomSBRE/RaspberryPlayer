@@ -3,7 +3,7 @@ from Queue import Queue
 from socket import gethostname
 import yaml
 from logging import getLogger
-
+import os
 
 class Preferences:
     def __init__(self, config_path):
@@ -18,6 +18,8 @@ class Preferences:
     def update(self):
         self._logger.info("Checking for new preferences")
         try:
+            if not os.path.isfile(self.configuration_file):
+                self._logger.error("%s does not exist!" % self.configuration_file)
             data = self.decode_file(self.configuration_file)
             video_list = data["videos"]
             times = data["time"]

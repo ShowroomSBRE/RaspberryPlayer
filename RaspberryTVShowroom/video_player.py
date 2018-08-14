@@ -66,8 +66,14 @@ class VideoPlayer:
         try:
             self._logger.info("Starting video")
             self._current_player = OMXPlayer(path)
-            while self._current_player.is_playing():
+            test = True
+            while test:
                 time.sleep(5)
+                try:
+                    test = self._current_player.is_playing()
+                    self._logger.info("Video playing...")
+                except:
+                    test = False
             self._logger.info("Video finished")
             return True
         except Exception as e:
@@ -84,4 +90,5 @@ if __name__ == "__main__":
     stream_handler.setFormatter(formatter)
     logger.addHandler(stream_handler)
     player = VideoPlayer()
-    player.play_video("/media/pi/Pepper/Videos/soiree.mp4")
+    logger.info(player.play_video("/media/pi/Pepper/Videos/soiree.mp4"))
+    logger.info(player.play_video("/media/pi/Pepper/Videos/soiree2.mp4"))

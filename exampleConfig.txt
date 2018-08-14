@@ -4,7 +4,7 @@ PAR-1977-LA:
         - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_NAO.mp4
         - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_PEPPER.mp4
 
-ACCUEIL:
+accueil:
     time: 16:17-16:18
     videos:
         - /media/pi/Pepper/Videos/enegyday.mp4

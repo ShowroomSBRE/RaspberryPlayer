@@ -25,7 +25,7 @@ class Preferences:
             self.video_list.put(video_list)
             self.time_on_off.put((time_on, time_off))
         except Exception as e:
-            self._logger.error("Error checking preferences: ", str(e))
+            self._logger.error("Error checking preferences: %s " % str(e))
 
     def start(self):
         self.update()

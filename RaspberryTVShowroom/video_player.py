@@ -1,7 +1,7 @@
 from Queue import Empty
 from os import name
 from threading import Thread
-from logging import getLogger, INFO, StreamHandler
+from logging import getLogger
 import time
 if name != "nt":
     from omxplayer.player import OMXPlayer
@@ -9,13 +9,11 @@ if name != "nt":
 
 class VideoPlayer:
     def __init__(self):
+        self._logger = getLogger("raspberry.videoplayer")
         self.is_running = False
         self._current_player = None
         self._thread = Thread()
-        self._logger = getLogger("Video Player")
-        self._logger.setLevel(INFO)
-
-        self._logger.addHandler(StreamHandler())
+        self._logger.info("ready")
 
     def start(self, video_list_queue):
         self._thread = Thread(target=self._run, args=(video_list_queue,))
@@ -23,40 +21,42 @@ class VideoPlayer:
 
     def stop(self):
         self.is_running = False
+        self._logger.info("Waiting for all actions to terminate")
         if self._current_player:
             self._current_player.quit()
         self._thread.join()
+        self._logger.info("Finished")
 
     def _run(self, video_list_queue):
         """
         :type video_list_queue: Queue.Queue
         """
         self.is_running = True
-        video_list = []
-        self._logger.info("waiting for a playlist...")
         while self.is_running:
-            try:
-                video_list = video_list_queue.get(block=True, timeout=5)
-                self._logger.info("got a playlist!")
-                break
-            except Empty:
-                continue
+            self._logger.info("waiting for a playlist...")
+            video_list = []
+            while self.is_running:
+                try:
+                    video_list = video_list_queue.get(block=True, timeout=5)
+                    self._logger.info("got a playlist!")
+                    break
+                except Empty:
+                    continue
 
-        current_video = 0
-        while self.is_running:
-            if self.play_video(video_list[current_video]):
-                current_video = (current_video + 1) % len(video_list)
-            else:
-                self._logger.info("Removing from the playlist")
-                del video_list[current_video]
-                if len(video_list) > 0:
-                    current_video = current_video % len(video_list)
+            current_video = 0
+            while self.is_running:
+                if self.play_video(video_list[current_video]):
+                    current_video = (current_video + 1) % len(video_list)
+                else:
+                    self._logger.info("Removing from the playlist")
+                    del video_list[current_video]
+                    if len(video_list) > 0:
+                        current_video = current_video % len(video_list)
+                    else:
+                        self._logger.warning("Playlist is empty.")
 
-            if len(video_list) == 0 or not video_list_queue.empty():
-                self._logger.info("waiting for a new playlist...")
-                video_list = video_list_queue.get()
-                self._logger.info("new playlist!")
-                current_video = 0
+                if len(video_list) == 0 or not video_list_queue.empty():
+                    break
 
     def play_video(self, path):
         """
@@ -71,5 +71,5 @@ class VideoPlayer:
                 time.sleep(1)
             return True
         except Exception as e:
-            self._logger.info("Error playing %s : %s" % (path, str(e)))
+            self._logger.error("Error playing %s : %s" % (path, str(e)))
             return False

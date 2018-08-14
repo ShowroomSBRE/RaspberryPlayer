@@ -1,37 +1,41 @@
 from preferences import Preferences
 from video_player import VideoPlayer
 from tv_controller import TVController
-from keyboard_watcher import KeyboardWatcher
-from time import sleep
 from sys import argv
+from logging import getLogger, INFO, StreamHandler, Formatter
 
 
 class TVApp:
     def __init__(self, config_path):
-        print "Initializing"
+        self._logger = getLogger("raspberry")
+        self._logger.setLevel(INFO)
+        formatter = Formatter('%(asctime)s [%(name)s] %(levelname)s : %(message)s')
+        stream_handler = StreamHandler()
+        stream_handler.setLevel(INFO)
+        stream_handler.setFormatter(formatter)
+        self._logger.addHandler(stream_handler)
+
+        self._logger.info("Initializing...")
         self.preference_checker = Preferences(config_path)
         self.video_player = VideoPlayer()
         self.tv_controller = TVController()
-        self.keyboard_watcher = KeyboardWatcher()
 
-        print "Ready"
+        self._logger.info("Ready")
 
     def run(self):
-        print "Running all threads!"
-        self.keyboard_watcher.start()
+        self._logger.info("Starting all components now...")
         self.tv_controller.start(self.preference_checker.time_on_off)
         self.video_player.start(self.preference_checker.video_list)
         self.preference_checker.start()
 
-        self.keyboard_watcher.key_pressed.get(block=True, timeout=None)
+        a = raw_input()
 
-        print "Key pressed, exiting"
-        self.keyboard_watcher.stop()
+        self._logger.info("Key pressed, exiting")
         self.tv_controller.stop()
         self.video_player.stop()
         self.preference_checker.stop()
 
-        print "End"
+        self._logger.info("End")
 
 
 if __name__ == "__main__":

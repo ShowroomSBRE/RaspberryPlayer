@@ -1,11 +1,11 @@
 PAR-1977-LA:
-    time: 09:00-19:00
+    time: 16:03-16:04
     videos:
         - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_NAO.mp4
         - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_PEPPER.mp4
 
 ACCUEIL:
-    time: 09:00-19:00
+    time: 16:17-16:18
     videos:
-        - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_NAO.mp4
-        - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_PEPPER.mp4
+        - /media/pi/Pepper/Videos/enegyday.mp4
+        - /media/pi/Pepper/Videos/soiree.mp4

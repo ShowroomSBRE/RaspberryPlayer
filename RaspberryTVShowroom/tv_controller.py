@@ -3,12 +3,15 @@ from datetime import datetime
 from Queue import Empty
 from threading import Thread
 import subprocess
+from logging import getLogger
 
 
 class TVController:
     def __init__(self):
+        self._logger = getLogger("raspberry.tvcontroller")
         self._thread = Thread()
         self.is_running = False
+        self._logger.info("ready")
 
     def start(self, schedule_queue):
         self._thread = Thread(target=self._run, args=(schedule_queue,))
@@ -16,33 +19,35 @@ class TVController:
 
     def stop(self):
         self.is_running = False
+        self._logger.info("Waiting for all actions to terminate")
         self._thread.join()
+        self._logger.info("Finished")
 
     def _run(self, schedule_queue):
         """
         :type schedule_queue: Queue.Queue
         """
+        self._logger.info("waiting for a schedule...")
 
         self.is_running = True
 
         scheduler = BackgroundScheduler()
         scheduler.start()
 
-        time_on = "9:00"
-        time_off = "19:00"
-        print "[tv controller] waiting for a schedule..."
+        time_on = "12:00"
+        time_off = "13:00"
         while self.is_running:
             try:
                 schedule = schedule_queue.get(block=True, timeout=5)
                 time_on, time_off = schedule
-                print "[tv controller] new schedule: %s to %s." % (time_on, time_off)
+                self._logger.info("new schedule: %s to %s." % (time_on, time_off))
                 break
 
             except Empty:
                 continue
 
         while self.is_running:
-            print "[tv controller] got a new schedule: %s to %s." % (time_on, time_off)
+            self._logger.info("got a new schedule: %s to %s." % (time_on, time_off))
             time_on = datetime.strptime(time_on, "%H:%M").time()
             time_off = datetime.strptime(time_off, "%H:%M").time()
 
@@ -56,7 +61,7 @@ class TVController:
                                                day_of_week='mon-fri')
             while self.is_running:
                 try:
-                    schedule = schedule_queue.get(block=True, timeout=300)
+                    schedule = schedule_queue.get(block=True, timeout=5)
                     time_on, time_off = schedule
                 except Empty:
                     continue
@@ -67,11 +72,11 @@ class TVController:
         scheduler.shutdown()
 
     def switch_on(self):
-        print "[tv controller] switching TV on"
+        self._logger.info("switching TV on")
         command = "echo on 0 | cec-client -s -d 1"
         subprocess.call(command, shell=True)
 
     def switch_off(self):
-        print "[tv controller] switching TV off"
+        self._logger.info("switching TV off")
         command = "echo standby 0 | cec-client -s -d 1"
         subprocess.call(command, shell=True)

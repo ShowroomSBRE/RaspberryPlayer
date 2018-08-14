@@ -1,3 +1,5 @@
+cd ~/Desktop/RaspberryPlayer
+
 git pull
 
 sudo apt-get update

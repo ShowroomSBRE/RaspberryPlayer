@@ -2,6 +2,7 @@ from preferences import Preferences
 from video_player import VideoPlayer
 from tv_controller import TVController
 from sys import argv
+import time
 from logging import getLogger, INFO, StreamHandler, Formatter
 
 
@@ -23,6 +24,9 @@ class TVApp:
         self._logger.info("Ready")
 
     def run(self):
+        self._logger.info("Waiting 1 min if you want to stop me before I go full screen...")
+        time.sleep(60)
+
         self._logger.info("Starting all components now...")
         self.tv_controller.start(self.preference_checker.time_on_off)
         self.video_player.start(self.preference_checker.video_list)

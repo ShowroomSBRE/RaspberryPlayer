@@ -3,6 +3,7 @@ from os import name
 from threading import Thread
 from logging import getLogger, INFO, StreamHandler, Formatter
 import time
+import pygame
 if name != "nt":
     from omxplayer.player import OMXPlayer
 
@@ -32,6 +33,11 @@ class VideoPlayer:
         :type video_list_queue: Queue.Queue
         """
         self.is_running = True
+        pygame.init()
+        pygame.mouse.set_visible(False)
+        screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        screen.fill((0, 0, 0))
+
         while self.is_running:
             self._logger.info("waiting for a playlist...")
             video_list = []
@@ -48,15 +54,18 @@ class VideoPlayer:
                 if self.play_video(video_list[current_video]):
                     current_video = (current_video + 1) % len(video_list)
                 else:
-                    self._logger.info("Removing from the playlist")
-                    del video_list[current_video]
-                    if len(video_list) > 0:
-                        current_video = current_video % len(video_list)
-                    else:
-                        self._logger.warning("Playlist is empty.")
+                #    self._logger.info("Removing from the playlist")
+                    current_video = (current_video + 1) % len(video_list)
+                #    del video_list[current_video]
+                #    if len(video_list) > 0:
+                #        current_video = current_video % len(video_list)
+                #    else:
+                #        self._logger.warning("Playlist is empty.")
 
                 if len(video_list) == 0 or not video_list_queue.empty():
                     break
+
+        pygame.quit()
 
     def play_video(self, path):
         """
@@ -71,10 +80,10 @@ class VideoPlayer:
                 time.sleep(5)
                 try:
                     test = self._current_player.is_playing()
-                    self._logger.info("Video playing...")
+                    self._logger.debug("Video playing...")
                 except:
                     test = False
-            self._logger.info("Video finished")
+            self._logger.debug("Video finished")
             return True
         except Exception as e:
             self._logger.error("Error playing %s : %s" % (path, str(e)))

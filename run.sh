@@ -1,4 +1,6 @@
-cd ~/Desktop/RaspberryPlayer
+FOLDER=/home/pi/Desktop/RaspberryPlayer
+
+cd "$FOLDER"
 
 git pull
 
@@ -7,4 +9,4 @@ sed 's/#.*//' apt-get.txt | xargs sudo apt-get -y install
 
 pip install -r requirements.txt
 
-python RaspberryTVShowroom/run.py ~/Desktop/RaspberryPlayer/exampleConfig.txt
+python "$FOLDER"/RaspberryTVShowroom/run.py "$FOLDER"/exampleConfig.txt

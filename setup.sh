@@ -14,7 +14,7 @@ fi
 cd "$FOLDER"
 
 echo "Now you need to :"
-echo "sudo ln -s $FOLDER/tvplayer.service /lib/systemd/system/tvplayer.service"
+echo "sudo cp $FOLDER/tvplayer.service /lib/systemd/system/tvplayer.service"
 echo "sudo chmod 644 $FOLDER/tvplayer.service "
 echo "sudo systemctl daemon-reload"
 echo "sudo systemctl enable tvplayer.service"

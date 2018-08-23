@@ -11,8 +11,6 @@ if [ ! -d "$FOLDER" ] ; then
     git clone "$URL" "$FOLDER"
 fi
 
-cd "$FOLDER"
-
 sudo cp $FOLDER/tvplayer.service /lib/systemd/system/tvplayer.service
 sudo chmod 644 /lib/systemd/system/tvplayer.service
 sudo systemctl daemon-reload

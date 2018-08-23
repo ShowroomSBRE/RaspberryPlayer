@@ -40,6 +40,10 @@ airport-left:
         - /media/pi/AIRPORT-L/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
         - /media/pi/AIRPORT-L/Pepper_Costa_SBR.mp4
         - /media/pi/AIRPORT-L/Pepper_UNIVERSCIENCE.mp4
+        - /media/pi/AIRPORT-L1/F3 - INFORM & ENGAGE_STENG.mp4
+        - /media/pi/AIRPORT-L1/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
+        - /media/pi/AIRPORT-L1/Pepper_Costa_SBR.mp4
+        - /media/pi/AIRPORT-L1/Pepper_UNIVERSCIENCE.mp4
 
 airport-right:
     time: 09:30-18:30

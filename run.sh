@@ -2,7 +2,7 @@ FOLDER=/home/pi/Desktop/RaspberryPlayer
 
 cd "$FOLDER"
 
-git pull
+sudo git pull
 
 sudo apt-get update
 sed 's/#.*//' apt-get.txt | xargs sudo apt-get -y install

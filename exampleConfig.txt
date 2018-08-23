@@ -33,13 +33,21 @@ hotel:
         - /media/pi/HOTEL/Pepper_Costa_SBR.mp4
         - /media/pi/HOTEL/Pepper_UNIVERSCIENCE.mp4
 
-airport:
+airport-left:
     time: 09:30-18:30
     videos:
-        - /media/pi/AIRPORT/F3 - INFORM & ENGAGE_STENG.mp4
-        - /media/pi/AIRPORT/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
-        - /media/pi/AIRPORT/Pepper_Costa_SBR.mp4
-        - /media/pi/AIRPORT/Pepper_UNIVERSCIENCE.mp4
+        - /media/pi/AIRPORT-L/F3 - INFORM & ENGAGE_STENG.mp4
+        - /media/pi/AIRPORT-L/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
+        - /media/pi/AIRPORT-L/Pepper_Costa_SBR.mp4
+        - /media/pi/AIRPORT-L/Pepper_UNIVERSCIENCE.mp4
+
+airport-right:
+    time: 09:30-18:30
+    videos:
+        - /media/pi/AIRPORT-R/F3 - INFORM & ENGAGE_STENG.mp4
+        - /media/pi/AIRPORT-R/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
+        - /media/pi/AIRPORT-R/Pepper_Costa_SBR.mp4
+        - /media/pi/AIRPORT-R/Pepper_UNIVERSCIENCE.mp4
 
 primary-educ:
     time: 09:30-18:30

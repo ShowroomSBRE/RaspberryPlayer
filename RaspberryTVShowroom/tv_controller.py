@@ -4,6 +4,7 @@ from Queue import Empty
 from threading import Thread
 import subprocess
 from logging import getLogger
+import time
 
 
 class TVController:
@@ -73,10 +74,22 @@ class TVController:
 
     def switch_on(self):
         self._logger.info("switching TV on")
-        command = "echo on 0 | cec-client -s -d 1"
-        subprocess.call(command, shell=True)
+        for i in range(5):
+            command = "echo on 0 | cec-client -s -d 1"
+            subprocess.call(command, shell=True)
+            time.sleep(2)
 
     def switch_off(self):
         self._logger.info("switching TV off")
-        command = "echo standby 0 | cec-client -s -d 1"
-        subprocess.call(command, shell=True)
+        for i in range(5):
+            command = "echo standby 0 | cec-client -s -d 1"
+            subprocess.call(command, shell=True)
+            time.sleep(2)
+
+
+if __name__ == "__main__":
+    tv = TVController()
+    tv.switch_on()
+    tv.switch_off()
+    tv.switch_on()
+    tv.switch_off()

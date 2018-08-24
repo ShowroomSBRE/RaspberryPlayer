@@ -6,3 +6,4 @@ libsmpeg-dev
 libportmidi-dev
 libavformat-dev
 libswscale-dev
+cec-utils

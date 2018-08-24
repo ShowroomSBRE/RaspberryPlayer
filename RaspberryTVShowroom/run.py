@@ -4,6 +4,7 @@ from tv_controller import TVController
 from sys import argv
 import time
 from logging import getLogger, INFO, StreamHandler, Formatter
+import signal
 
 
 class TVApp:
@@ -15,6 +16,8 @@ class TVApp:
         stream_handler.setLevel(INFO)
         stream_handler.setFormatter(formatter)
         self._logger.addHandler(stream_handler)
+        signal.signal(signal.SIGINT, self.exit_gracefully)
+        signal.signal(signal.SIGTERM, self.exit_gracefully)
 
         self._logger.info("Initializing...")
         self.preference_checker = Preferences(config_path)
@@ -32,11 +35,10 @@ class TVApp:
         self.video_player.start(self.preference_checker.video_list)
         self.preference_checker.start()
 
-        try:
-            a = raw_input()
-        except KeyboardInterrupt:
-            pass
+        while True:
+            time.sleep(120)
 
+    def exit_gracefully(self, signum, frame):
         self._logger.info("Key pressed, exiting")
         self.tv_controller.stop()
         self.video_player.stop()

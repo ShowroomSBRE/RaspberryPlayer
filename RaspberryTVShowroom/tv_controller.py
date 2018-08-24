@@ -52,6 +52,11 @@ class TVController:
             time_on = datetime.strptime(time_on, "%H:%M").time()
             time_off = datetime.strptime(time_off, "%H:%M").time()
 
+            if datetime.now().time() < time_on or datetime.now().time() > time_off:
+                self.switch_off()
+            else:
+                self.switch_on()
+
             job_switch_on = scheduler.add_job(self.switch_on, 'cron',
                                               hour=time_on.hour,
                                               minute=time_on.minute,
@@ -73,19 +78,24 @@ class TVController:
         scheduler.shutdown()
 
     def switch_on(self):
-        self._logger.info("switching TV on")
-        for i in range(5):
-            command = "echo on 0 | cec-client -s -d 1"
-            subprocess.call(command, shell=True)
-            time.sleep(2)
+        try:
+            self._logger.info("switching TV on")
+            for i in range(5):
+                command = "echo on 0 | cec-client -s -d 1"
+                subprocess.call(command, shell=True)
+                time.sleep(2)
+        except Exception as e:
+            self._logger.error("Error switching TV on : %s " % str(e))
 
     def switch_off(self):
-        self._logger.info("switching TV off")
-        for i in range(5):
-            command = "echo standby 0 | cec-client -s -d 1"
-            subprocess.call(command, shell=True)
-            time.sleep(2)
-
+        try:
+            self._logger.info("switching TV off")
+            for i in range(5):
+                command = "echo standby 0 | cec-client -s -d 1"
+                subprocess.call(command, shell=True)
+                time.sleep(2)
+        except Exception as e:
+            self._logger.error("Error switching TV OFF : %s" % str(e))
 
 if __name__ == "__main__":
     tv = TVController()

@@ -24,6 +24,7 @@ class VideoPlayer:
         self.is_running = False
         self._logger.info("Waiting for all actions to terminate")
         if self._current_player:
+            self._current_player.stop()
             self._current_player.quit()
         self._thread.join()
         self._logger.info("Finished")
@@ -81,12 +82,6 @@ class VideoPlayer:
                 try:
                     test = self._current_player.is_playing()
                     self._logger.debug("Video playing...")
-
-                    try:
-                        if not self.is_running:
-                            self._current_player.stop()
-                    except:
-                        pass
                 except:
                     test = False
 

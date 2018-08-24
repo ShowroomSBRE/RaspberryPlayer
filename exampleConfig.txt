@@ -5,28 +5,28 @@ PAR-1977-LA:
         - \\FILER01\Services\Mkt\1 - SALES OPERATIONS\5 - CONTENT\NAO COORDINATION\NAO V6\Vidéo produits NAO6\OURS_PEPPER.mp4
 
 accueil:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/ACCUEIL/F_ALL_STENG.mp4
 
 banking:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/ACCUEIL/F_ALL_STENG.mp4
 
 higher-educ:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/EDUCATION/F6 - TEACH & LEARN_STENG.mp4
 
 techno:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/TECHNO/F1 - BOOST FOOT TRAFFIC_STENG.mp4
         - /media/pi/TECHNO/Pepper_SmartBox_Fnac.mp4
 
 hotel:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/HOTEL/F3 - INFORM & ENGAGE_STENG.mp4
         - /media/pi/HOTEL/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
@@ -34,7 +34,7 @@ hotel:
         - /media/pi/HOTEL/Pepper_UNIVERSCIENCE.mp4
 
 airport-left:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/AIRPORT-L/F3 - INFORM & ENGAGE_STENG.mp4
         - /media/pi/AIRPORT-L/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
@@ -46,7 +46,7 @@ airport-left:
         - /media/pi/AIRPORT-L1/Pepper_UNIVERSCIENCE.mp4
 
 airport-right:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/AIRPORT-R/F3 - INFORM & ENGAGE_STENG.mp4
         - /media/pi/AIRPORT-R/F5 - SHARPEN CUSTOMER INSIGHTS_STENG.mp4
@@ -54,6 +54,6 @@ airport-right:
         - /media/pi/AIRPORT-R/Pepper_UNIVERSCIENCE.mp4
 
 primary-educ:
-    time: 15:55-16:00
+    time: 09:30-18:30
     videos:
         - /media/pi/PRIMARY/F6 - TEACH & LEARN_STENG.mp4

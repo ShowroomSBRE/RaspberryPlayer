@@ -81,8 +81,15 @@ class VideoPlayer:
                 try:
                     test = self._current_player.is_playing()
                     self._logger.debug("Video playing...")
+
+                    try:
+                        if not self.is_running:
+                            self._current_player.stop()
+                    except:
+                        pass
                 except:
                     test = False
+
             self._logger.debug("Video finished")
             return True
         except Exception as e:
